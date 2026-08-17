@@ -468,7 +468,7 @@
           <div class="detail-images">
             {% for image in editing_product.detail_images %}
             <label class="detail-image">
-              <img src="{{ url_for('static', filename=image) }}" alt="详情图">
+              <img src="{{ media_url(image) }}" alt="详情图">
               <span class="check">
                 <input type="checkbox" name="remove_detail_images" value="{{ image }}">
                 移除此图
@@ -498,7 +498,7 @@
       <div class="product-list">
         {% for product in products %}
         <article class="product-row">
-          <div class="thumb" style='background-image: url("{{ url_for('static', filename=product.main_image) if product.main_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+          <div class="thumb" style='background-image: url("{{ media_url(product.main_image) }}");'></div>
           <div>
             <h3>{{ product.name }}</h3>
             <p class="muted">{{ product.summary or "暂无简短介绍" }}</p>

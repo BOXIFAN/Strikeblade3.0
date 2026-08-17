@@ -431,7 +431,7 @@
     <section class="product-grid" aria-label="产品列表">
       {% for product in products %}
       <article class="product-card">
-        <div class="product-media" style='--image: url("{{ url_for('static', filename=product.main_image) if product.main_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+        <div class="product-media" style='--image: url("{{ media_url(product.main_image) }}");'></div>
         <div class="product-body">
           <h2>{{ product.name }}</h2>
           <p>{{ product.summary or product.description or "暂无简介" }}</p>

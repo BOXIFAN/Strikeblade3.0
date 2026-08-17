@@ -135,7 +135,7 @@ data/articles.json
 文章图片保存到：
 
 ```text
-static/uploads/articles/
+uploads/articles/
 ```
 
 ## 首页展示规则
@@ -151,7 +151,7 @@ data/products.json
 后台上传的图片会保存到：
 
 ```text
-static/uploads/products/
+uploads/products/
 ```
 
 首页不会直接手写固定产品，产品上新和编辑都应通过 `/manage` 完成。
@@ -191,7 +191,7 @@ static/uploads/products/
 当前项目启动命令：
 
 ```text
-gunicorn app:app
+gunicorn app:app --bind 0.0.0.0:$PORT
 ```
 
 建议在 Render 环境变量中设置：
@@ -203,3 +203,20 @@ APP_SECRET_KEY=一串随机长密钥
 ```
 
 注意：Render 普通文件系统不适合长期保存上传图片。正式上线后，如果需要长期保存后台上传图片，建议配置 Render Disk 或接入云存储。
+
+当前代码支持可选持久化目录：
+
+```text
+STRIKEBLADE_STORAGE_ROOT=/var/data
+```
+
+未设置该变量时，项目会继续使用仓库内的 `data/` 和运行目录下的 `uploads/`，适合本地开发或 Render Free 临时测试。
+
+后续如果升级并添加 Render Disk，建议设置：
+
+```text
+Disk Mount Path=/var/data
+STRIKEBLADE_STORAGE_ROOT=/var/data
+```
+
+首次启动时，如果 `/var/data/data/products.json` 或 `/var/data/data/articles.json` 不存在，系统会自动从仓库内置 demo 数据复制一份作为初始内容。

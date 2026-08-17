@@ -195,7 +195,7 @@
     <section class="article-grid" aria-label="文章列表">
       {% for article in articles %}
       <article class="article-card">
-        <div class="article-cover" style='--image: url("{{ url_for('static', filename=article.cover_image) if article.cover_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+        <div class="article-cover" style='--image: url("{{ media_url(article.cover_image) }}");'></div>
         <div class="article-body">
           <h2>{{ article.title }}</h2>
           <p>{{ article.summary or "暂无摘要" }}</p>

@@ -324,7 +324,7 @@
       <div class="gallery-frame" data-gallery-frame>
         {% for image in product.detail_images %}
         <figure class="gallery-slide{% if loop.first %} is-active{% endif %}" data-slide>
-          <img src="{{ url_for('static', filename=image) }}" alt="{{ product.name }} 详情图 {{ loop.index }}">
+          <img src="{{ media_url(image) }}" alt="{{ product.name }} 详情图 {{ loop.index }}">
         </figure>
         {% endfor %}
         {% if product.detail_images|length > 1 %}
@@ -338,7 +338,7 @@
         <div class="gallery-thumbs" aria-label="选择详情图">
           {% for image in product.detail_images %}
           <button class="gallery-thumb{% if loop.first %} is-active{% endif %}" type="button" aria-label="查看第 {{ loop.index }} 张详情图" data-gallery-thumb="{{ loop.index0 }}">
-            <img src="{{ url_for('static', filename=image) }}" alt="">
+            <img src="{{ media_url(image) }}" alt="">
           </button>
           {% endfor %}
         </div>

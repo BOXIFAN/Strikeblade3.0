@@ -856,7 +856,7 @@
         <div class="product-grid">
           {% for product in products %}
           <article class="product-card">
-            <div class="product-media" style='--image: url("{{ url_for('static', filename=product.main_image) if product.main_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+            <div class="product-media" style='--image: url("{{ media_url(product.main_image) }}");'></div>
             <div class="product-body">
               <h3>{{ product.name }}</h3>
               <div class="meta">

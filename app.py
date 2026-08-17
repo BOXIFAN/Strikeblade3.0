@@ -4,17 +4,22 @@ from datetime import datetime
 from pathlib import Path
 from uuid import uuid4
 
-from flask import Flask, jsonify, redirect, render_template, request, session, url_for
+from flask import Flask, jsonify, redirect, render_template, request, send_from_directory, session, url_for
 
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("APP_SECRET_KEY", "dev-secret-change-before-deploy")
 BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / "data"
+STORAGE_ROOT = os.environ.get("STRIKEBLADE_STORAGE_ROOT", "").strip()
+STORAGE_DIR = Path(STORAGE_ROOT) if STORAGE_ROOT else BASE_DIR
+BUNDLED_DATA_DIR = BASE_DIR / "data"
+BUNDLED_UPLOAD_DIR = BASE_DIR / "static" / "uploads"
+DATA_DIR = STORAGE_DIR / "data"
 PRODUCTS_FILE = DATA_DIR / "products.json"
 ARTICLES_FILE = DATA_DIR / "articles.json"
-PRODUCT_UPLOAD_DIR = BASE_DIR / "static" / "uploads" / "products"
-ARTICLE_UPLOAD_DIR = BASE_DIR / "static" / "uploads" / "articles"
+UPLOAD_DIR = STORAGE_DIR / "uploads"
+PRODUCT_UPLOAD_DIR = UPLOAD_DIR / "products"
+ARTICLE_UPLOAD_DIR = UPLOAD_DIR / "articles"
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 MANAGE_USERNAME = os.environ.get("MANAGE_USERNAME", "uniquede")
 MANAGE_PASSWORD = os.environ.get("MANAGE_PASSWORD", "350234")
@@ -39,13 +44,38 @@ PRODUCT_PERIODS = [
 
 
 def ensure_storage():
-    DATA_DIR.mkdir(exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
     PRODUCT_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     ARTICLE_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     if not PRODUCTS_FILE.exists():
-        PRODUCTS_FILE.write_text("[]\n", encoding="utf-8")
+        bundled_products = BUNDLED_DATA_DIR / "products.json"
+        if bundled_products.exists():
+            PRODUCTS_FILE.write_text(
+                bundled_products.read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+        else:
+            PRODUCTS_FILE.write_text("[]\n", encoding="utf-8")
     if not ARTICLES_FILE.exists():
-        ARTICLES_FILE.write_text("[]\n", encoding="utf-8")
+        bundled_articles = BUNDLED_DATA_DIR / "articles.json"
+        if bundled_articles.exists():
+            ARTICLES_FILE.write_text(
+                bundled_articles.read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+        else:
+            ARTICLES_FILE.write_text("[]\n", encoding="utf-8")
+
+
+def media_url(path):
+    if not path:
+        return url_for("static", filename="images/mainpage_images/车丘嘉弯刀特写.jpg")
+    if path.startswith("uploads/"):
+        return url_for("uploaded_file", filename=path.removeprefix("uploads/"))
+    return url_for("static", filename=path)
+
+
+app.jinja_env.globals["media_url"] = media_url
 
 
 def load_products():
@@ -100,6 +130,14 @@ def save_uploaded_file(file_storage, upload_dir=PRODUCT_UPLOAD_DIR, url_prefix="
     upload_dir.mkdir(parents=True, exist_ok=True)
     file_storage.save(upload_dir / filename)
     return f"{url_prefix}/{filename}"
+
+
+@app.route("/uploads/<path:filename>")
+def uploaded_file(filename):
+    upload_path = UPLOAD_DIR / filename
+    if upload_path.exists():
+        return send_from_directory(UPLOAD_DIR, filename)
+    return send_from_directory(BUNDLED_UPLOAD_DIR, filename)
 
 
 def product_from_form(existing=None):
@@ -328,7 +366,7 @@ def upload_article_image():
     )
     if not image_path:
         return jsonify({"error": "invalid image"}), 400
-    return jsonify({"url": url_for("static", filename=image_path), "path": image_path})
+    return jsonify({"url": media_url(image_path), "path": image_path})
 
 
 @app.post("/manage/articles/<article_id>/delete")

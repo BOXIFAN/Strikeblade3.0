@@ -8,3 +8,4 @@ Strikeblade3.0/
 .env.*
 instance/
 .pytest_cache/
+uploads/
