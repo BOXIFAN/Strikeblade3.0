@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理登录 | Strikeblade</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: grid;
+      min-height: 100vh;
+      margin: 0;
+      place-items: center;
+      color: #ece6d8;
+      background:
+        radial-gradient(circle at 18% 7%, rgba(236, 230, 216, 0.08), transparent 28rem),
+        linear-gradient(rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 52%, #12110e 100%);
+      background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
+      font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    .panel {
+      width: min(100% - 32px, 420px);
+      border: 1px solid rgba(236, 230, 216, 0.14);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.045), transparent 48%),
+        rgba(236, 230, 216, 0.06);
+      backdrop-filter: blur(16px);
+      padding: 28px;
+    }
+
+    .login-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    p {
+      margin: 0 0 22px;
+      color: #aaa59b;
+      line-height: 1.7;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input,
+    button {
+      min-height: 46px;
+      border: 1px solid rgba(236, 230, 216, 0.14);
+      color: #ece6d8;
+      background: rgba(14, 13, 11, 0.58);
+      font: inherit;
+      padding: 0 12px;
+    }
+
+    button {
+      background: rgba(236, 230, 216, 0.1);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    a {
+      color: #aaa59b;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+</head>
+<body>
+  <main class="panel">
+    <div class="login-title">
+      <img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true">
+      <h1>管理登录</h1>
+    </div>
+    <p>请输入唯一管理员用户名与密码。部署到 Render 时可用环境变量覆盖默认账号。</p>
+    <form action="{{ url_for('manage') }}" method="post">
+      <input type="text" name="username" placeholder="用户名" required autofocus>
+      <input type="password" name="password" placeholder="管理密码" required>
+      <button type="submit">进入后台</button>
+      <a href="{{ url_for('index') }}">返回首页</a>
+    </form>
+  </main>
+</body>
+</html>

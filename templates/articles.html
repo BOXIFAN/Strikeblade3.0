@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文章/研究 | Strikeblade</title>
+  <style>
+    :root {
+      --text: #ece6d8;
+      --muted: #aaa59b;
+      --line: rgba(236, 230, 216, 0.14);
+      --panel: rgba(236, 230, 216, 0.06);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 7%, rgba(236, 230, 216, 0.08), transparent 28rem),
+        linear-gradient(rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 52%, #12110e 100%);
+      background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
+      font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 72px;
+      padding: 0 max(16px, calc((100vw - var(--max)) / 2));
+      border-bottom: 1px solid rgba(236, 230, 216, 0.08);
+      background: rgba(15, 14, 12, 0.76);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    .links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+    }
+
+    main {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 86px 0 100px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 14px 0 18px;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .intro {
+      max-width: 620px;
+      color: #cfc8bb;
+      line-height: 1.8;
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 42px;
+    }
+
+    .article-card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.045), transparent 48%),
+        var(--panel);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .article-cover {
+      aspect-ratio: 4 / 3;
+      background:
+        linear-gradient(180deg, rgba(14, 13, 11, 0.1), rgba(14, 13, 11, 0.58)),
+        var(--image) center / cover;
+      filter: grayscale(0.72) sepia(0.12) contrast(1.04) brightness(0.94);
+    }
+
+    .article-body {
+      padding: 20px;
+    }
+
+    .article-body h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      line-height: 1.25;
+    }
+
+    .article-body p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      background: rgba(236, 230, 216, 0.06);
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      .article-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        display: grid;
+        gap: 12px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-nav.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{{ url_for('index') }}"><img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true"> <span>Strikeblade</span></a>
+    <input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="打开导航菜单">
+    <label class="nav-toggle-label" for="nav-toggle" aria-hidden="true"><span></span></label>
+    <nav class="links">
+      <a href="{{ url_for('index') }}">首页</a>
+      <a href="{{ url_for('buying_guide') }}">购买须知</a>
+      <a href="{{ url_for('all_products') }}">全部产品</a>
+      <a href="{{ url_for('custom') }}">定制</a>
+      <a href="{{ url_for('research') }}">文章/研究</a>
+      <a href="{{ url_for('contact') }}">联系</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="eyebrow">Articles / Research</p>
+    <h1>文章 / 研究</h1>
+    <p class="intro">整理刀剑工艺、材料知识、保养说明、购买指南和定制研究，让作品背后的细节有一个更完整的表达空间。</p>
+
+    <section class="article-grid" aria-label="文章列表">
+      {% for article in articles %}
+      <article class="article-card">
+        <div class="article-cover" style='--image: url("{{ url_for('static', filename=article.cover_image) if article.cover_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+        <div class="article-body">
+          <h2>{{ article.title }}</h2>
+          <p>{{ article.summary or "暂无摘要" }}</p>
+          <a class="button" href="{{ url_for('article_detail', article_id=article.id) }}">阅读全文</a>
+        </div>
+      </article>
+      {% else %}
+      <article class="article-card">
+        <div class="article-cover" style='--image: url("{{ url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+        <div class="article-body">
+          <h2>暂无文章</h2>
+          <p>发布后的文章会显示在这里。</p>
+          <a class="button" href="{{ url_for('contact') }}">联系咨询</a>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>

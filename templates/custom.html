@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定制 | Strikeblade</title>
+  <style>
+    :root {
+      --text: #ece6d8;
+      --muted: #aaa59b;
+      --line: rgba(236, 230, 216, 0.15);
+      --line-soft: rgba(236, 230, 216, 0.08);
+      --panel: rgba(236, 230, 216, 0.065);
+      --panel-strong: rgba(236, 230, 216, 0.105);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 7%, rgba(236, 230, 216, 0.08), transparent 28rem),
+        linear-gradient(rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 52%, #12110e 100%);
+      background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
+      font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      padding: 0 max(16px, calc((100vw - var(--max)) / 2));
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(15, 14, 12, 0.76);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    .links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+    }
+
+    main {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 84px 0 110px;
+    }
+
+    .custom-hero {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(14, 13, 11, 0.9), rgba(14, 13, 11, 0.62) 48%, rgba(14, 13, 11, 0.82)),
+        linear-gradient(0deg, rgba(14, 13, 11, 0.82), rgba(14, 13, 11, 0.25) 46%, rgba(14, 13, 11, 0.76)),
+        url("{{ url_for('static', filename='images/mainpage_images/定制背景.jpg') }}") center / cover;
+      box-shadow: inset 0 1px 0 rgba(236, 230, 216, 0.05);
+    }
+
+    .custom-hero::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(rgba(236, 230, 216, 0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.028) 1px, transparent 1px);
+      background-size: 72px 72px;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.55;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      padding: clamp(28px, 6vw, 64px);
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.4rem, 9vw, 7rem);
+      line-height: 0.96;
+      letter-spacing: 0.02em;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: #cfc8bb;
+      font-size: 1.08rem;
+      line-height: 1.85;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.045), transparent 48%),
+        var(--panel);
+      backdrop-filter: blur(16px);
+      padding: clamp(22px, 4vw, 36px);
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--line-soft);
+      padding-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rule-grid,
+    .item-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .rule,
+    .custom-item,
+    .note {
+      border: 1px solid var(--line-soft);
+      background: rgba(14, 13, 11, 0.42);
+      padding: 20px;
+    }
+
+    .rule strong,
+    .custom-item h3,
+    .note strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .rule p,
+    .custom-item p,
+    .note p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .price {
+      display: inline-flex;
+      margin-top: 18px;
+      min-height: 36px;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--panel-strong);
+      padding: 0 12px;
+      color: #d8d0c1;
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      background: rgba(236, 230, 216, 0.045);
+    }
+
+    .step {
+      min-height: 150px;
+      padding: 22px;
+      border-right: 1px solid var(--line-soft);
+    }
+
+    .step:last-child {
+      border-right: 0;
+    }
+
+    .step span {
+      display: block;
+      margin-bottom: 26px;
+      color: var(--muted);
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .cta {
+      display: flex;
+      justify-content: space-between;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .cta p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      background: rgba(236, 230, 216, 0.075);
+      padding: 0 18px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        display: grid;
+        gap: 12px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      main {
+        padding-top: 28px;
+      }
+
+      .custom-hero {
+        min-height: 520px;
+      }
+
+      .rule-grid,
+      .item-grid,
+      .note-grid,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        border-right: 0;
+        border-bottom: 1px solid var(--line-soft);
+      }
+
+      .step:last-child {
+        border-bottom: 0;
+      }
+
+      .section-title,
+      .cta {
+        display: grid;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-nav.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{{ url_for('index') }}"><img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true"> <span>Strikeblade</span></a>
+    <input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="打开导航菜单">
+    <label class="nav-toggle-label" for="nav-toggle" aria-hidden="true"><span></span></label>
+    <nav class="links">
+      <a href="{{ url_for('index') }}">首页</a>
+      <a href="{{ url_for('buying_guide') }}">购买须知</a>
+      <a href="{{ url_for('all_products') }}">全部产品</a>
+      <a href="{{ url_for('custom') }}">定制</a>
+      <a href="{{ url_for('research') }}">文章/研究</a>
+      <a href="{{ url_for('contact') }}">联系</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="custom-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Custom Rules</p>
+        <h1>定制</h1>
+        <p class="lead">定制页面用于说明需求提交规则、制作周期、注意事项与可定制范围。当前价格仅作占位展示，最终报价需根据图纸、尺寸、材料、装具复杂度和交付要求确认。</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>可定制项目</h2>
+        <span>Pricing Placeholder</span>
+      </div>
+      <div class="item-grid">
+        <article class="custom-item">
+          <h3>带图包含数据与尺寸全自主定制</h3>
+          <p>适合已有完整参考图、尺寸表、材料要求和装具细节的方案。可围绕刃长、全长、重心、护手、柄材、鞘装与刻字做完整整理。</p>
+          <span class="price">定价：待确认</span>
+        </article>
+        <article class="custom-item">
+          <h3>带图但不包含数据的定制</h3>
+          <p>适合只有外观参考图的方案。我们会先根据图片推定比例，再与你确认实际尺寸、用途和工艺取舍。</p>
+          <span class="price">定价：待确认</span>
+        </article>
+        <article class="custom-item">
+          <h3>无图定制</h3>
+          <p>适合从文字需求开始的方案，例如时代风格、收藏用途、展示尺寸或材料偏好。前期需要更多沟通以确定方向。</p>
+          <span class="price">定价：待确认</span>
+        </article>
+        <article class="custom-item">
+          <h3>在已有产品基础上的定制</h3>
+          <p>适合基于现有产品调整长度、装具、鞘色、柄材、铭文或展示细节。可控性更高，沟通周期通常更短。</p>
+          <span class="price">定价：待确认</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>定制规则</h2>
+        <span>Requirement Rules</span>
+      </div>
+      <div class="rule-grid">
+        <article class="rule">
+          <strong>需求信息</strong>
+          <p>建议提交刀剑类型、用途、参考图、尺寸、材料、装具、鞘装颜色、刻字内容和预算范围。</p>
+        </article>
+        <article class="rule">
+          <strong>方案确认</strong>
+          <p>在制作前确认关键参数和视觉方向。未确认的部分会以沟通记录为准，不直接进入制作。</p>
+        </article>
+        <article class="rule">
+          <strong>合法合规</strong>
+          <p>定制前请自行确认所在地关于刀剑收藏、运输、进口和展示的法律要求。</p>
+        </article>
+        <article class="rule">
+          <strong>报价方式</strong>
+          <p>当前页面价格为占位符。实际价格按材料、尺寸、工艺复杂度和交付周期综合确认。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>工期流程</h2>
+        <span>Lead Time</span>
+      </div>
+      <div class="timeline">
+        <div class="step">
+          <span>01</span>
+          <strong>需求整理</strong>
+          <p>收集图纸、尺寸、材料和用途，初步判断是否可制作。</p>
+        </div>
+        <div class="step">
+          <span>02</span>
+          <strong>方案与报价</strong>
+          <p>整理参数和工艺选择，给出预估周期与占位报价。</p>
+        </div>
+        <div class="step">
+          <span>03</span>
+          <strong>确认制作</strong>
+          <p>确认细节、排期与沟通记录后进入制作阶段。</p>
+        </div>
+        <div class="step">
+          <span>04</span>
+          <strong>完成与交付</strong>
+          <p>完成后进行图片确认，再根据约定方式安排交付。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>注意事项</h2>
+        <span>Notes</span>
+      </div>
+      <div class="note-grid">
+        <article class="note">
+          <strong>图片仅作参考</strong>
+          <p>参考图会用于判断比例和风格，最终制作仍需结合材料、结构和安全边界。</p>
+        </article>
+        <article class="note">
+          <strong>尺寸需要确认</strong>
+          <p>全长、刃长、柄长、重心和重量会直接影响报价与成品使用感。</p>
+        </article>
+        <article class="note">
+          <strong>交付时间浮动</strong>
+          <p>复杂装具、特殊材料、排期和运输都可能影响最终工期。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel cta">
+      <p>开始定制前，请尽量准备参考图、尺寸、目标用途和预算区间。若资料不完整，也可以先发送现有想法，我们会按可执行程度协助整理。</p>
+      <a class="button" href="{{ url_for('contact') }}">联系定制</a>
+    </section>
+  </main>
+</body>
+</html>

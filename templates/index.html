@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Strikeblade 是一个以收藏刀剑、定制刀剑和工艺展示为核心的品牌网站。">
+  <title>Strikeblade | 刀剑收藏与定制展示</title>
+  <style>
+    :root {
+      --bg: #0e0d0b;
+      --panel: rgba(236, 230, 216, 0.06);
+      --panel-strong: rgba(236, 230, 216, 0.1);
+      --text: #ece6d8;
+      --muted: #aaa59b;
+      --line: rgba(236, 230, 216, 0.14);
+      --line-soft: rgba(236, 230, 216, 0.08);
+      --accent: #d8d0c1;
+      --danger: #9b4a4a;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(236, 230, 216, 0.08), transparent 26rem),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 44%, #12110e 100%);
+      font-family: Inter, "Noto Sans SC", "Microsoft YaHei", "PingFang SC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      content: "";
+      background-image:
+        linear-gradient(rgba(236, 230, 216, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.03) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(15, 14, 12, 0.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(100% - 32px, var(--max));
+      height: 72px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    .nav-toggle-label {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .nav-toggle-label span,
+    .nav-toggle-label span::before,
+    .nav-toggle-label span::after {
+      display: block;
+      width: 18px;
+      height: 2px;
+      content: "";
+      background: var(--text);
+    }
+
+    .nav-toggle-label span::before {
+      transform: translateY(-7px);
+    }
+
+    .nav-toggle-label span::after {
+      transform: translateY(5px);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(236, 230, 216, 0.07);
+      backdrop-filter: blur(12px);
+      font-weight: 650;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .button:hover {
+      border-color: rgba(236, 230, 216, 0.36);
+      background: rgba(236, 230, 216, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .button.secondary {
+      color: var(--accent);
+      background: transparent;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      align-items: center;
+      min-height: 96vh;
+      padding: 124px 0 54px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      content: "";
+      background:
+        linear-gradient(90deg, rgba(14, 13, 11, 0.94), rgba(14, 13, 11, 0.5) 58%, rgba(14, 13, 11, 0.86)),
+        linear-gradient(0deg, #0e0d0b 0%, rgba(13, 12, 10, 0.1) 48%, rgba(13, 12, 10, 0.78) 100%);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -20%;
+      bottom: 12%;
+      z-index: -1;
+      width: 82vw;
+      height: 1px;
+      content: "";
+      background: linear-gradient(90deg, transparent, rgba(236, 230, 216, 0.8), transparent);
+      transform: rotate(-13deg);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.72fr);
+      gap: 44px;
+      align-items: center;
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      min-width: 0;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 720px;
+      overflow: hidden;
+      border-left: 1px solid var(--line-soft);
+      border-right: 1px solid var(--line-soft);
+      background: rgba(236, 230, 216, 0.025);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      min-height: 720px;
+      object-fit: cover;
+      object-position: center;
+      filter: sepia(0.08) contrast(1.05) brightness(0.96);
+    }
+
+    .hero-visual::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(90deg, rgba(13, 12, 10, 0.5), transparent 20%, transparent 72%, rgba(13, 12, 10, 0.42)),
+        linear-gradient(0deg, rgba(13, 12, 10, 0.42), transparent 28%, transparent 70%, rgba(13, 12, 10, 0.35));
+      pointer-events: none;
+    }
+
+    .section-inner {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(2.7rem, 5.7vw, 5.35rem);
+      line-height: 1.02;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-copy {
+      max-width: 600px;
+      margin: 24px 0 0;
+      color: #cfc8bb;
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      max-width: 640px;
+      gap: 1px;
+      margin-top: 52px;
+      border: 1px solid rgba(236, 230, 216, 0.12);
+      background:
+        linear-gradient(90deg, transparent, rgba(236, 230, 216, 0.26), transparent) center top / 72% 1px no-repeat,
+        rgba(236, 230, 216, 0.035);
+      backdrop-filter: blur(16px);
+    }
+
+    .stat {
+      position: relative;
+      min-height: 126px;
+      padding: 24px 22px 22px;
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.065), rgba(236, 230, 216, 0.018)),
+        rgba(14, 13, 11, 0.38);
+    }
+
+    .stat::before {
+      display: block;
+      width: 34px;
+      height: 1px;
+      margin-bottom: 18px;
+      content: "";
+      background: rgba(236, 230, 216, 0.42);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.08rem;
+      letter-spacing: 0.08em;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.7;
+    }
+
+    .stat em {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(236, 230, 216, 0.42);
+      font-size: 0.68rem;
+      font-style: normal;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    section {
+      padding: 92px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 34px;
+    }
+
+    .section-heading h2 {
+      max-width: 620px;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .section-heading p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .collection-card {
+      min-height: 330px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(14, 13, 11, 0.06), rgba(14, 13, 11, 0.72)),
+        var(--image) center / cover;
+      filter: grayscale(0.72) sepia(0.12) contrast(1.04) brightness(0.92);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      transition: transform 220ms ease, filter 220ms ease, border-color 220ms ease;
+    }
+
+    .collection-card.blade-fit {
+      background:
+        linear-gradient(180deg, rgba(14, 13, 11, 0.04), rgba(14, 13, 11, 0.72)),
+        var(--image) center 38% / contain no-repeat,
+        radial-gradient(circle at 50% 42%, rgba(236, 230, 216, 0.035), transparent 44%),
+        #090907;
+      filter: grayscale(0.28) sepia(0.08) contrast(1.04) brightness(0.98);
+    }
+
+    .collection-card.blade-fit:hover {
+      filter: grayscale(0.12) sepia(0.05) contrast(1.04) brightness(1.02);
+    }
+
+    .collection-card:hover {
+      border-color: rgba(236, 230, 216, 0.36);
+      filter: grayscale(0.42) sepia(0.1) contrast(1.04) brightness(0.96);
+      transform: translateY(-4px);
+    }
+
+    .collection-card h3 {
+      margin: 0;
+      font-size: 1.42rem;
+      text-transform: uppercase;
+    }
+
+    .collection-card p {
+      margin: 10px 0 0;
+      color: #c8c0b3;
+      line-height: 1.55;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .product-card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.045), transparent 48%),
+        var(--panel);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .product-media {
+      aspect-ratio: 4 / 3;
+      background:
+        linear-gradient(180deg, rgba(14, 13, 11, 0), rgba(14, 13, 11, 0.42)),
+        var(--image) center / cover;
+      filter: grayscale(0.7) sepia(0.12) contrast(1.04) brightness(0.94);
+    }
+
+    .product-body {
+      padding: 20px;
+    }
+
+    .product-body h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .meta span {
+      padding-top: 10px;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .craft {
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(236, 230, 216, 0.032);
+    }
+
+    .craft-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .craft-image {
+      min-height: 520px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(14, 13, 11, 0.08), rgba(14, 13, 11, 0.68)),
+        url("https://images.unsplash.com/photo-1605101100278-5d1deb2b6498?auto=format&fit=crop&w=1200&q=82") center / cover;
+      filter: grayscale(0.72) sepia(0.12) contrast(1.04) brightness(0.92);
+    }
+
+    .craft-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .craft-item {
+      padding: 20px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(14px);
+    }
+
+    .craft-item h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .craft-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .custom-panel {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: center;
+      padding: 34px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.09), transparent 42%),
+        rgba(236, 230, 216, 0.055);
+      backdrop-filter: blur(18px);
+    }
+
+    .custom-panel h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .custom-panel p {
+      max-width: 650px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .site-footer {
+      padding: 42px 0 96px;
+      border-top: 1px solid var(--line-soft);
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .site-footer p {
+      max-width: 620px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .mobile-inquiry {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      left: 16px;
+      z-index: 18;
+      display: none;
+      min-height: 50px;
+      border: 1px solid rgba(236, 230, 216, 0.28);
+      background: rgba(13, 12, 10, 0.78);
+      backdrop-filter: blur(16px);
+      font-weight: 700;
+      place-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .nav-toggle-label {
+        display: grid;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 72px;
+        right: 0;
+        left: auto;
+        width: min(260px, calc(100vw - 32px));
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 12px;
+        border: 1px solid var(--line);
+        background: rgba(13, 12, 10, 0.92);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav-links a {
+        padding: 14px;
+        border-bottom: 1px solid var(--line-soft);
+      }
+
+      .nav-links a:last-child {
+        border-bottom: 0;
+      }
+
+      .nav-toggle:checked ~ .nav-links {
+        display: flex;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 112px 0 34px;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(180deg, rgba(14, 13, 11, 0.92), rgba(14, 13, 11, 0.48) 44%, rgba(14, 13, 11, 0.92)),
+          linear-gradient(0deg, #0e0d0b 0%, rgba(13, 12, 10, 0.14) 46%, rgba(13, 12, 10, 0.82) 100%);
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: min(100% - 32px, 620px);
+        border: 1px solid var(--line-soft);
+        background:
+          linear-gradient(180deg, rgba(14, 13, 11, 0.08), rgba(14, 13, 11, 0.86)),
+          rgba(236, 230, 216, 0.028);
+        overflow: hidden;
+      }
+
+      .hero-content {
+        padding: 24px 16px 28px;
+      }
+
+      .hero-visual {
+        order: -1;
+        min-height: 0;
+        max-height: none;
+        aspect-ratio: 4 / 5;
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 1px solid var(--line-soft);
+      }
+
+      .hero-visual img {
+        min-height: 0;
+        height: 100%;
+        object-fit: contain;
+        object-position: center bottom;
+        background: #070706;
+      }
+
+      .hero-visual::after {
+        background:
+          linear-gradient(180deg, transparent 62%, rgba(14, 13, 11, 0.72)),
+          linear-gradient(90deg, rgba(14, 13, 11, 0.42), transparent 22%, transparent 78%, rgba(14, 13, 11, 0.42));
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 10vw, 3.15rem);
+        line-height: 1.08;
+      }
+
+      .hero-copy {
+        margin-top: 18px;
+        font-size: 1rem;
+      }
+
+      .hero-stats {
+        gap: 10px;
+        margin-top: 32px;
+        border: 0;
+        background: transparent;
+      }
+
+      .hero-stats,
+      .collection-grid,
+      .product-grid,
+      .craft-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        min-height: auto;
+        border: 1px solid var(--line-soft);
+      }
+
+      .collection-card {
+        min-height: 250px;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .section-heading p {
+        margin-top: 16px;
+      }
+
+      .craft-image {
+        min-height: 360px;
+      }
+
+      .footer-inner {
+        display: block;
+      }
+
+      .mobile-inquiry {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav {
+        width: min(100% - 24px, var(--max));
+        height: 78px;
+      }
+
+      .brand {
+        gap: 10px;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+      }
+
+      .brand-logo {
+        width: 42px;
+        height: 42px;
+      }
+
+      .nav-toggle-label {
+        width: 44px;
+        height: 44px;
+        flex: 0 0 auto;
+      }
+
+      .nav-links {
+        top: 78px;
+      }
+
+      .section-inner {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      section {
+        padding: 68px 0;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-nav.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="主导航">
+      <a class="brand" href="#top" aria-label="Strikeblade 首页">
+        <img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true">
+        <span>Strikeblade</span>
+      </a>
+
+      <input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="打开导航菜单">
+      <label class="nav-toggle-label" for="nav-toggle" aria-hidden="true">
+        <span></span>
+      </label>
+
+      <div class="nav-links">
+        <a href="{{ url_for('index') }}">首页</a>
+        <a href="{{ url_for('buying_guide') }}">购买须知</a>
+        <a href="{{ url_for('all_products') }}">全部产品</a>
+        <a href="{{ url_for('custom') }}">定制</a>
+        <a href="{{ url_for('research') }}">文章/研究</a>
+        <a href="{{ url_for('contact') }}">联系</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Strikeblade 品牌介绍">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <p class="eyebrow">收藏刀剑 / 定制作品 / 金属工艺</p>
+          <h1>从一件工艺品，去触摸人文历史</h1>
+          <p class="hero-copy">
+            古韵新生，安刃藏锋
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="{{ url_for('all_products') }}">查看全部产品</a>
+            <a class="button secondary" href="{{ url_for('custom') }}">发起定制咨询</a>
+          </div>
+          <div class="hero-stats" aria-label="服务亮点">
+            <div class="stat">
+              <em>Craft</em>
+              <strong>工艺</strong>
+              <span>竭尽所能使用我们最好的工艺呈现作品。</span>
+            </div>
+            <div class="stat">
+              <em>History</em>
+              <strong>历史</strong>
+              <span>每一把利刃灵感都源自真正的历史。</span>
+            </div>
+            <div class="stat">
+              <em>Archive</em>
+              <strong>留存</strong>
+              <span>赋予每一个产品值得收藏的价值。</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="{{ url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}" alt="车丘嘉弯刀特写主视觉">
+        </div>
+      </div>
+    </section>
+
+    <section id="collections">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>刀剑系列</h2>
+        </div>
+
+        <div class="collection-grid">
+          <a class="collection-card blade-fit" href="{{ url_for('all_products', origin='亚洲') }}" style="--image: url('{{ url_for('static', filename='images/mainpage_images/亚洲刀剑首页.png') }}');">
+            <h3>亚洲系刀剑</h3>
+            <p>涵盖东方体系下的直身、弯刃、装具比例与陈列审美，适合展示历史感与工艺细节。</p>
+          </a>
+          <a class="collection-card blade-fit" href="{{ url_for('all_products', origin='欧洲') }}" style="--image: url('{{ url_for('static', filename='images/mainpage_images/欧式刀剑首页.png') }}');">
+            <h3>欧洲系刀剑</h3>
+            <p>突出护手、握柄、剑身比例与结构秩序，适合收藏、装饰与主题陈列。</p>
+          </a>
+          <a class="collection-card blade-fit" href="{{ url_for('all_products', origin='亚欧大陆风格') }}" style="--image: url('{{ url_for('static', filename='images/mainpage_images/欧亚刀剑首页.png') }}');">
+            <h3>泛欧亚风格</h3>
+            <p>融合草原、陆路交流与复合装具语言，强调跨地域审美和功能结构。</p>
+          </a>
+          <a class="collection-card blade-fit" href="{{ url_for('custom') }}" style="--image: url('{{ url_for('static', filename='images/mainpage_images/定制刀剑首页.png') }}');">
+            <h3>定制作品</h3>
+            <p>可围绕钢材、尺寸、柄卷、鞘色、装具与刻字进行方案沟通。</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="featured">
+      <div class="section-inner">
+        <div class="section-heading">
+          <h2>正在销售 / 开团</h2>
+        </div>
+
+        <div class="product-grid">
+          {% for product in products %}
+          <article class="product-card">
+            <div class="product-media" style='--image: url("{{ url_for('static', filename=product.main_image) if product.main_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+            <div class="product-body">
+              <h3>{{ product.name }}</h3>
+              <div class="meta">
+                <span>种类：{{ product.weapon_type or "未设置" }}</span>
+                <span>来源：{{ product.origin or "未设置" }}</span>
+                <span>时期：{{ product.period or "未设置" }}</span>
+                <span>全长：{{ product.length or "待补充" }}</span>
+                <span>状态：{{ product.status }}</span>
+              </div>
+              <a class="button secondary" href="{{ url_for('product_detail', product_id=product.id) }}">查看详情</a>
+            </div>
+          </article>
+          {% else %}
+          <article class="product-card">
+            <div class="product-media" style='--image: url("{{ url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+            <div class="product-body">
+              <h3>暂无上架作品</h3>
+              <div class="meta">
+                <span>状态：等待后台添加</span>
+                <span>入口：/manage</span>
+                <span>展示：正在销售</span>
+                <span>类型：开团</span>
+              </div>
+              <a class="button secondary" href="{{ url_for('contact') }}">联系咨询</a>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="contact">
+    <div class="footer-inner">
+      <div>
+        <strong>Strikeblade</strong>
+        <p>以收藏、展示与定制沟通为主，呈现刀剑工艺、历史灵感与作品记录。详细购买须知、定制方式和联系方式可通过顶部导航查看。</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

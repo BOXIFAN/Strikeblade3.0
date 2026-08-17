@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理后台 | Strikeblade</title>
+  <style>
+    :root {
+      --bg: #0e0d0b;
+      --panel: rgba(236, 230, 216, 0.06);
+      --text: #ece6d8;
+      --muted: #aaa59b;
+      --line: rgba(236, 230, 216, 0.14);
+      --line-soft: rgba(236, 230, 216, 0.08);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 7%, rgba(236, 230, 216, 0.08), transparent 28rem),
+        linear-gradient(rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 52%, #12110e 100%);
+      background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
+      font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(15, 14, 12, 0.76);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner,
+    .layout {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    .topbar a:not(.brand) {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.8fr) minmax(0, 1.2fr);
+      gap: 18px;
+      padding: 34px 0 80px;
+    }
+
+    .panel,
+    .product-row {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.04), transparent 50%),
+        var(--panel);
+      backdrop-filter: blur(16px);
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1;
+    }
+
+    h2 {
+      margin-bottom: 18px;
+      font-size: 1.25rem;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(14, 13, 11, 0.58);
+      font: inherit;
+      padding: 10px 12px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input[type="file"] {
+      padding: 11px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+    }
+
+    .check input {
+      width: 18px;
+      min-height: 18px;
+      accent-color: #ece6d8;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(236, 230, 216, 0.08);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .button.secondary,
+    button.secondary {
+      color: var(--muted);
+      background: transparent;
+    }
+
+    .danger {
+      border-color: rgba(180, 40, 40, 0.6);
+      color: #ffb7b7;
+    }
+
+    .product-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 16px;
+      padding: 14px;
+    }
+
+    .thumb {
+      aspect-ratio: 1 / 1;
+      border: 1px solid var(--line-soft);
+      background: rgba(236, 230, 216, 0.04) center / cover;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+
+    .tag {
+      border: 1px solid var(--line-soft);
+      color: var(--muted);
+      background: rgba(236, 230, 216, 0.04);
+      padding: 5px 8px;
+      font-size: 0.78rem;
+    }
+
+    .detail-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .detail-image {
+      border: 1px solid var(--line-soft);
+      padding: 8px;
+      background: rgba(14, 13, 11, 0.38);
+    }
+
+    .detail-image img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .wide-panel {
+      grid-column: 1 / -1;
+    }
+
+    .editor-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: rgba(14, 13, 11, 0.46);
+    }
+
+    .editor-toolbar button,
+    .editor-toolbar select {
+      min-height: 38px;
+      width: auto;
+      padding: 0 10px;
+      font-size: 0.9rem;
+    }
+
+    .rich-editor {
+      min-height: 420px;
+      border: 1px solid var(--line);
+      background: rgba(14, 13, 11, 0.46);
+      color: var(--text);
+      padding: 20px;
+      line-height: 1.9;
+      outline: none;
+      overflow: auto;
+    }
+
+    .rich-editor:empty::before {
+      content: "在这里撰写文章正文。可选择标题、字号、下划线，并在文字间插入图片。";
+      color: var(--muted);
+    }
+
+    .rich-editor h2,
+    .rich-editor h3 {
+      line-height: 1.25;
+      margin: 1.2em 0 0.45em;
+    }
+
+    .rich-editor img {
+      display: block;
+      width: auto;
+      max-width: min(100%, 640px);
+      max-height: min(52vh, 520px);
+      height: auto;
+      object-fit: contain;
+      margin: 20px auto;
+      border: 1px solid var(--line-soft);
+      background: rgba(236, 230, 216, 0.04);
+    }
+
+    .rich-editor img.article-image-small {
+      max-width: min(100%, 420px);
+      max-height: min(44vh, 380px);
+    }
+
+    .rich-editor img.article-image-wide {
+      max-width: min(100%, 760px);
+      max-height: min(56vh, 560px);
+    }
+
+    .article-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.55fr);
+      gap: 18px;
+    }
+
+    .article-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .article-row {
+      border: 1px solid var(--line);
+      background: rgba(236, 230, 216, 0.04);
+      padding: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .layout,
+      .article-grid,
+      .two-col,
+      .product-row {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-images {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="{{ url_for('manage') }}"><img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true"> <span>Strikeblade Manage</span></a>
+      <nav>
+        <a href="{{ url_for('index') }}">返回首页</a>
+        <span aria-hidden="true"> / </span>
+        <a href="{{ url_for('manage_logout') }}">退出登录</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h1>产品管理</h1>
+      <p class="muted">新增或编辑货物信息、主图、详情图，并控制是否出现在首页“正在销售 / 开团”区域。</p>
+
+      <form action="{{ url_for('manage') }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="product_id" value="{{ editing_product.id if editing_product else '' }}">
+
+        <label>
+          产品名称
+          <input name="name" required value="{{ editing_product.name if editing_product else '' }}">
+        </label>
+
+        <div class="two-col">
+          <label>
+            刀剑种类
+            <select name="weapon_type">
+              {% set current_weapon_type = editing_product.weapon_type if editing_product and editing_product.weapon_type else '单手' %}
+              {% for weapon_type in weapon_types %}
+              <option value="{{ weapon_type }}" {{ 'selected' if current_weapon_type == weapon_type else '' }}>{{ weapon_type }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>
+            刀剑来源
+            <select name="origin">
+              {% set current_origin = editing_product.origin if editing_product and editing_product.origin else '欧洲' %}
+              {% for origin in product_origins %}
+              <option value="{{ origin }}" {{ 'selected' if current_origin == origin else '' }}>{{ origin }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        </div>
+
+        <div class="two-col">
+          <label>
+            时期
+            <select name="period">
+              {% set current_period = editing_product.period if editing_product and editing_product.period else '近代（1800-1914）' %}
+              {% for period in product_periods %}
+              <option value="{{ period }}" {{ 'selected' if current_period == period else '' }}>{{ period }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>
+            状态
+            <select name="status">
+              {% set status = editing_product.status if editing_product else '正在销售' %}
+              <option value="正在销售" {{ 'selected' if status == '正在销售' else '' }}>正在销售</option>
+              <option value="开团" {{ 'selected' if status == '开团' else '' }}>开团</option>
+              <option value="售罄" {{ 'selected' if status == '售罄' else '' }}>售罄</option>
+              <option value="隐藏" {{ 'selected' if status == '隐藏' else '' }}>隐藏</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="two-col">
+          <label>
+            钢材
+            <input name="steel" placeholder="例如：花纹钢 / 1095 碳钢" value="{{ editing_product.steel if editing_product else '' }}">
+          </label>
+          <label>
+            长度
+            <input name="length" placeholder="例如：98 cm" value="{{ editing_product.length if editing_product else '' }}">
+          </label>
+        </div>
+
+        <label>
+          价格/报价说明
+          <input name="price_note" placeholder="例如：私信报价 / 定金开团 / 现货咨询" value="{{ editing_product.price_note if editing_product else '' }}">
+        </label>
+
+        <label>
+          简短介绍
+          <textarea name="summary" placeholder="显示在产品列表或详情页顶部">{{ editing_product.summary if editing_product else '' }}</textarea>
+        </label>
+
+        <label>
+          详细说明
+          <textarea name="description" placeholder="材质、工艺、用途、注意事项等">{{ editing_product.description if editing_product else '' }}</textarea>
+        </label>
+
+        <label>
+          产品主图
+          <input type="file" name="main_image" accept="image/*">
+        </label>
+
+        <label>
+          详情图，可多选
+          <input type="file" name="detail_images" accept="image/*" multiple>
+        </label>
+
+        {% if editing_product and editing_product.detail_images %}
+        <div>
+          <p class="muted">当前详情图，勾选后保存即可移除：</p>
+          <div class="detail-images">
+            {% for image in editing_product.detail_images %}
+            <label class="detail-image">
+              <img src="{{ url_for('static', filename=image) }}" alt="详情图">
+              <span class="check">
+                <input type="checkbox" name="remove_detail_images" value="{{ image }}">
+                移除此图
+              </span>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <label class="check">
+          <input type="checkbox" name="show_on_home" {{ 'checked' if editing_product and editing_product.show_on_home else '' }}>
+          展示在首页“正在销售 / 开团”
+        </label>
+
+        <div class="button-row">
+          <button type="submit">{{ "保存修改" if editing_product else "新增产品" }}</button>
+          {% if editing_product %}
+          <a class="button secondary" href="{{ url_for('manage') }}">取消编辑</a>
+          {% endif %}
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>已有产品</h2>
+      <div class="product-list">
+        {% for product in products %}
+        <article class="product-row">
+          <div class="thumb" style='background-image: url("{{ url_for('static', filename=product.main_image) if product.main_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+          <div>
+            <h3>{{ product.name }}</h3>
+            <p class="muted">{{ product.summary or "暂无简短介绍" }}</p>
+            <div class="tag-row">
+              <span class="tag">{{ product.status }}</span>
+              <span class="tag">{{ "首页展示" if product.show_on_home else "不在首页" }}</span>
+              <span class="tag">{{ product.weapon_type or "未设种类" }}</span>
+              <span class="tag">{{ product.origin or "未设来源" }}</span>
+              <span class="tag">{{ product.period or "未设时期" }}</span>
+              <span class="tag">详情图 {{ product.detail_images|length }} 张</span>
+            </div>
+            <div class="button-row">
+              <a class="button secondary" href="{{ url_for('manage', edit=product.id) }}">编辑</a>
+              <a class="button secondary" href="{{ url_for('product_detail', product_id=product.id) }}">查看详情页</a>
+              <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post">
+                <button class="danger" type="submit">删除</button>
+              </form>
+            </div>
+          </div>
+        </article>
+        {% else %}
+        <p class="muted">还没有产品。先在左侧新增一个货物信息。</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="panel wide-panel">
+      <h1>文章 / 研究</h1>
+      <p class="muted">撰写文章、工艺研究、保养说明或刀剑知识内容。已发布文章会显示在前台“文章/研究”专栏。</p>
+
+      <div class="article-grid">
+        <form id="article-form" action="{{ url_for('save_article') }}" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="article_id" value="{{ editing_article.id if editing_article else '' }}">
+          <input id="article-content" type="hidden" name="content_html" value="">
+
+          <label>
+            文章标题
+            <input name="title" required value="{{ editing_article.title if editing_article else '' }}">
+          </label>
+
+          <div class="two-col">
+            <label>
+              状态
+              <select name="status">
+                {% set article_status = editing_article.status if editing_article else '草稿' %}
+                <option value="草稿" {{ 'selected' if article_status == '草稿' else '' }}>草稿</option>
+                <option value="发布" {{ 'selected' if article_status == '发布' else '' }}>发布</option>
+              </select>
+            </label>
+            <label>
+              封面图
+              <input type="file" name="cover_image" accept="image/*">
+            </label>
+          </div>
+
+          <label>
+            摘要
+            <textarea name="summary" placeholder="用于文章列表页展示">{{ editing_article.summary if editing_article else '' }}</textarea>
+          </label>
+
+          <div>
+            <p class="muted">正文编辑器</p>
+            <div class="editor-toolbar" aria-label="文章编辑工具栏">
+              <select id="block-format" title="段落格式">
+                <option value="P">正文</option>
+                <option value="H2">段落标题</option>
+                <option value="H3">小标题</option>
+              </select>
+              <select id="font-size" title="字号">
+                <option value="">字号</option>
+                <option value="2">小号</option>
+                <option value="3">正文</option>
+                <option value="5">大号</option>
+                <option value="7">特大</option>
+              </select>
+              <button type="button" data-command="underline">下划线</button>
+              <button type="button" data-command="removeFormat">清除格式</button>
+              <button id="insert-image-button" type="button">插入图片</button>
+              <input id="article-inline-image" type="file" accept="image/*" hidden>
+            </div>
+            <div id="rich-editor" class="rich-editor" contenteditable="true">{{ editing_article.content_html|safe if editing_article else '' }}</div>
+          </div>
+
+          <div class="button-row">
+            <button type="submit">{{ "保存文章" if editing_article else "新增文章" }}</button>
+            {% if editing_article %}
+            <a class="button secondary" href="{{ url_for('manage') }}">取消编辑</a>
+            {% endif %}
+          </div>
+        </form>
+
+        <aside>
+          <h2>已有文章</h2>
+          <div class="article-list">
+            {% for article in articles %}
+            <article class="article-row">
+              <h3>{{ article.title }}</h3>
+              <p class="muted">{{ article.summary or "暂无摘要" }}</p>
+              <div class="tag-row">
+                <span class="tag">{{ article.status }}</span>
+                <span class="tag">{{ article.updated_at }}</span>
+              </div>
+              <div class="button-row">
+                <a class="button secondary" href="{{ url_for('manage', article_edit=article.id) }}">编辑</a>
+                {% if article.status == '发布' %}
+                <a class="button secondary" href="{{ url_for('article_detail', article_id=article.id) }}">查看文章</a>
+                {% endif %}
+                <form action="{{ url_for('delete_article', article_id=article.id) }}" method="post">
+                  <button class="danger" type="submit">删除</button>
+                </form>
+              </div>
+            </article>
+            {% else %}
+            <p class="muted">还没有文章。可以先写一篇购买指南、保养说明或工艺研究。</p>
+            {% endfor %}
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    const articleForm = document.querySelector("#article-form");
+    const editor = document.querySelector("#rich-editor");
+    const hiddenContent = document.querySelector("#article-content");
+    const blockFormat = document.querySelector("#block-format");
+    const fontSize = document.querySelector("#font-size");
+    const imageButton = document.querySelector("#insert-image-button");
+    const imageInput = document.querySelector("#article-inline-image");
+    let savedRange = null;
+
+    function focusEditor() {
+      editor.focus();
+      if (savedRange) {
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(savedRange);
+      }
+    }
+
+    function saveSelection() {
+      const selection = window.getSelection();
+      if (selection.rangeCount > 0) {
+        savedRange = selection.getRangeAt(0);
+      }
+    }
+
+    editor.addEventListener("keyup", saveSelection);
+    editor.addEventListener("mouseup", saveSelection);
+    editor.addEventListener("input", saveSelection);
+
+    document.querySelectorAll("[data-command]").forEach((button) => {
+      button.addEventListener("click", () => {
+        focusEditor();
+        document.execCommand(button.dataset.command, false, null);
+        saveSelection();
+      });
+    });
+
+    blockFormat.addEventListener("change", () => {
+      focusEditor();
+      document.execCommand("formatBlock", false, blockFormat.value);
+      saveSelection();
+    });
+
+    fontSize.addEventListener("change", () => {
+      if (!fontSize.value) return;
+      focusEditor();
+      document.execCommand("fontSize", false, fontSize.value);
+      fontSize.value = "";
+      saveSelection();
+    });
+
+    imageButton.addEventListener("click", () => {
+      saveSelection();
+      imageInput.click();
+    });
+
+    imageInput.addEventListener("change", async () => {
+      const file = imageInput.files[0];
+      if (!file) return;
+
+      const data = new FormData();
+      data.append("image", file);
+
+      const response = await fetch("{{ url_for('upload_article_image') }}", {
+        method: "POST",
+        body: data,
+      });
+
+      if (!response.ok) {
+        alert("图片上传失败，请确认文件格式为 jpg、png、webp 或 gif。");
+        imageInput.value = "";
+        return;
+      }
+
+      const result = await response.json();
+      focusEditor();
+      document.execCommand("insertHTML", false, `<img class="article-image" src="${result.url}" alt="文章插图" loading="lazy">`);
+      imageInput.value = "";
+      saveSelection();
+    });
+
+    articleForm.addEventListener("submit", () => {
+      editor.querySelectorAll("img").forEach((image) => {
+        image.classList.add("article-image");
+        image.loading = "lazy";
+        if (!image.alt) {
+          image.alt = "文章插图";
+        }
+        image.removeAttribute("width");
+        image.removeAttribute("height");
+      });
+      hiddenContent.value = editor.innerHTML.trim();
+    });
+  </script>
+</body>
+</html>

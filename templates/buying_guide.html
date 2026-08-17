@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>购买须知 | Strikeblade</title>
+  <style>
+    :root {
+      --text: #ece6d8;
+      --muted: #aaa59b;
+      --line: rgba(236, 230, 216, 0.15);
+      --line-soft: rgba(236, 230, 216, 0.08);
+      --panel: rgba(236, 230, 216, 0.065);
+      --panel-strong: rgba(236, 230, 216, 0.105);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 7%, rgba(236, 230, 216, 0.08), transparent 28rem),
+        linear-gradient(rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 52%, #12110e 100%);
+      background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
+      font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      padding: 0 max(16px, calc((100vw - var(--max)) / 2));
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(15, 14, 12, 0.76);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    .links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+    }
+
+    main {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 86px 0 110px;
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      line-height: 0.96;
+      letter-spacing: 0.02em;
+    }
+
+    .lead {
+      max-width: 780px;
+      margin: 24px 0 0;
+      color: #cfc8bb;
+      font-size: 1.08rem;
+      line-height: 1.85;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.045), transparent 48%),
+        var(--panel);
+      backdrop-filter: blur(16px);
+      padding: clamp(22px, 4vw, 36px);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3.4rem);
+      line-height: 1;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .section-title span,
+    .badge {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .notice-grid,
+    .rule-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .notice,
+    .rule,
+    details,
+    .special {
+      border: 1px solid var(--line-soft);
+      background: rgba(14, 13, 11, 0.42);
+      padding: 20px;
+    }
+
+    .notice strong,
+    .rule strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+      font-size: 1.04rem;
+    }
+
+    .rule ul,
+    .special ul {
+      margin: 10px 0 0;
+      padding-left: 1.2em;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .qa-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    details p {
+      margin-top: 14px;
+    }
+
+    .verify {
+      margin-top: 14px;
+      border: 1px solid var(--line);
+      background: var(--panel-strong);
+      padding: 14px;
+      color: var(--text);
+      font-weight: 800;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        display: grid;
+        gap: 12px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      main {
+        padding-top: 42px;
+      }
+
+      .section-title,
+      .notice-grid,
+      .rule-grid {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-nav.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{{ url_for('index') }}"><img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true"> <span>Strikeblade</span></a>
+    <input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="打开导航菜单">
+    <label class="nav-toggle-label" for="nav-toggle" aria-hidden="true"><span></span></label>
+    <nav class="links">
+      <a href="{{ url_for('index') }}">首页</a>
+      <a href="{{ url_for('buying_guide') }}">购买须知</a>
+      <a href="{{ url_for('all_products') }}">全部产品</a>
+      <a href="{{ url_for('custom') }}">定制</a>
+      <a href="{{ url_for('research') }}">文章/研究</a>
+      <a href="{{ url_for('contact') }}">联系</a>
+    </nav>
+  </header>
+
+  <main>
+    <header class="panel">
+      <p class="eyebrow">客户须知项目</p>
+      <h1>客户须知</h1>
+      <p class="lead">Strike Blade 的售前须知，涵盖产品用途、售后与注意事项。以下为详细条款。</p>
+    </header>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>重要声明与客户须知</h2>
+        <span>Notice</span>
+      </div>
+      <div class="notice-grid">
+        <article class="notice">
+          <strong>法律定性声明</strong>
+          <p>本店所售刀剑工艺品属于收藏品、装饰品或武术练习道具。严禁违法改装行为，否则将依法被认定为管制刀具，改装使用者须承担全部法律责任。</p>
+        </article>
+        <article class="notice">
+          <strong>使用场景限制</strong>
+          <p>本产品禁止携带进入公共场所、交通工具及人员密集区域。根据《治安管理处罚法》第三十二条，非法携带管制刀具将面临拘留、罚款等处罚；情节严重者可能触犯《刑法》第一百三十条（非法携带危险物品危及公共安全罪）。因违反该条例产生的任何违法、违反管制条例等责任与我方无关。</p>
+        </article>
+        <article class="notice">
+          <strong>安全责任豁免</strong>
+          <p>客户发送验证后/购买付款时即承诺产品仅用于合法静态收藏、文化展示或安全训练。因私自开刃、违规使用、保管不当导致的财产损失、人身伤害及法律纠纷，本公司不承担任何刑事、民事及行政责任。</p>
+        </article>
+        <article class="notice">
+          <strong>未成年人禁售条款</strong>
+          <p>根据《未成年人保护法》第五十九条，严禁向未满18周岁者销售。购买时需出示有效身份证件，客户须保证购买者及使用人均为完全民事行为能力人。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>客户须知安全条例</h2>
+        <span>Before Purchase</span>
+      </div>
+      <div class="rule-grid">
+        <article class="rule">
+          <strong>购买前必读与资质确认</strong>
+          <ul>
+            <li>购买人须年满18周岁，具备完全民事行为能力，提供真实身份信息备案。</li>
+            <li>承诺不将产品用于任何非法用途，包括但不限于恐吓、斗殴、危害公共安全。</li>
+          </ul>
+        </article>
+        <article class="rule">
+          <strong>安全使用规范</strong>
+          <ul>
+            <li>禁止改装：自行违法改装将导致产品被认定为管制刀具。</li>
+            <li>禁止携带外出：不得将产品携带至街道、商场、车站、机场等法律规定的公共场所，含公共交通。</li>
+            <li>安全存放：须置于儿童无法接触的专用柜体中，加装锁具并与其他危险物品隔离。买方未妥善保存问题导致的受伤、事故与我方无关。</li>
+            <li>使用防护：练习时须穿戴护具并在专业场地进行，严禁指向人体或动物。</li>
+          </ul>
+        </article>
+        <article class="rule">
+          <strong>法律责任告知</strong>
+          <ul>
+            <li>若因客户违规使用导致他人伤亡，依据《刑法》第二百三十四条（故意伤害罪）或第二百三十五条（过失致人伤亡罪），使用者将承担刑事责任。</li>
+            <li>因保管不善导致产品被盗、被用于犯罪活动，购买者可能承担连带责任。</li>
+            <li>任何欺瞒年龄的行为将自行承担违反条例带来的后果与损失。</li>
+          </ul>
+        </article>
+        <article class="rule">
+          <strong>其他约定</strong>
+          <p>签收即视为确认产品完好且符合安全标准，运输导致的损坏需在签收24小时内举证。人为损坏、违规使用不享受退换及赔偿。</p>
+          <div class="verify">特别提示：如有合作信息请发邮箱，联系方式验证信息为“我已全部阅读萨兰工艺品/StrikeBlade的各项条款并确认。”</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>常见问题</h2>
+        <span>Q&A</span>
+      </div>
+      <div class="qa-list">
+        <details open>
+          <summary>1. 你们的产品是“砍砍乐”吗？</summary>
+          <p>否。我们设计的剑参考于历史实物，同时融合我们个人的设计理念，在保证基础性能的情况也会下以武术向、美术向等偏向专项进行设计与制作，同时保证基础的性能与美观。</p>
+        </details>
+        <details>
+          <summary>2. 砍硬东西包不包补偿？规格外物品包括但不限于什么？</summary>
+          <p>超规物品与恶意诋毁不包赔偿，如果在正常使用范围内毁坏需要提供视频，规格外物品包括但不限于斩树、斩铁、斩其他兵器（ps：细树枝类看情况和刃损而定），另外如果有需要，我们也会给出研磨方面的建议。</p>
+        </details>
+        <details>
+          <summary>3. 售后是什么样的？</summary>
+          <p>如果确认在正常使用范畴内损坏，我们会进行售后处理，包括但不限于优惠券、现款和替换，会尽量协商至客户与商家达成彼此利益适宜的解决方案。我们会在到货7天内每天询问状态，当然，如果造成困扰的话可以和我们说不需要这项。发生问题后，我们会尽快回复并着手解决问题，对事故进行处理、检查问题、进行判定或协商。但是很遗憾对于地方邮寄条例和管控力度的不同，有可能我们无法从中协助邮寄退回，但是会尽力提供解决方案并且努力尝试。未成年客户请获得家长许可。</p>
+        </details>
+        <details>
+          <summary>4. 生产模式</summary>
+          <p>内容包括设计和自主制造，以及代工合作生产。同时兼有自主和代工的工作室，包括但不限于武备。</p>
+        </details>
+        <details>
+          <summary>5. 开刃情况</summary>
+          <p>依照所处地区对应的安全管理规则处理。短兵器因条例和安全考虑，我们只能开斧刃或预留刃。</p>
+        </details>
+        <details>
+          <summary>6. 我对这件产品有一部分不合个人喜好的点，可以加钱改修吗？</summary>
+          <p>我们会根据复杂度而定，条子是没法更改的，装具上简单切割倒是无所谓，复杂的得看情况。我们个人建议您如果有需要可以全套定制，我们会从头与您一起对接完成这把剑，进行个性化的定制，在预算内尽量满足需求。</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-title">
+        <h2>Q&A 快问快答</h2>
+        <span>Quick Answers</span>
+      </div>
+      <div class="qa-list">
+        <details>
+          <summary>Q：这把剑我买回来都有怎么用呢？</summary>
+          <p>A：我们鼓励您使用它练习武术，以一只真正的剑施展技术的感觉是非常不同的，当然即使是挂起来，它至少会是不掉档次的东西。</p>
+        </details>
+        <details>
+          <summary>Q：可以在哪使用？</summary>
+          <p>A：作为一把管制刀具，我不推荐您将她/他/它带到公共场所，因此请在私人场所，例如自己的家、私人俱乐部这类地方使用。请不要给身边的人造成困扰和伤害喔。</p>
+        </details>
+        <details>
+          <summary>Q：会被收缴吗？</summary>
+          <p>A：和上面的问题相同，请低调、安全、正确地使用她/他/它。同时如果没有针对性举报是没有问题的。但是如若发生意外，由于您已阅读过FAQ，我们是不会承担损失赔偿的，所以请避免出现针对性举报的情况，也不要违反相关条例。</p>
+        </details>
+        <details>
+          <summary>Q：如何保养？</summary>
+          <p>A：请涂油，如果长期不玩，或者地区气候湿润，请涂油和使用保鲜膜包裹。</p>
+        </details>
+        <details>
+          <summary>Q：为什么我感觉你们这砍起来没有 xxx 那么厉害啊？是不是你们在诓我？</summary>
+          <p>A：如果在技术没有问题的情况下，可以试试优化开刃情况，我们会出教程，另外不同的设计斩切效果是不一样的，如果希望学习具体切割技术我们未来会出教程。</p>
+        </details>
+        <details>
+          <summary>Q：剑身数据如何？</summary>
+          <p>A：大部分剑参考古物设计，极致的渐薄和丰美的轮廓让她可以轻盈而又可以迅速而有力的执行斩切、刺击、啄击等战术动作，钢质鞘身薄而贴身，让佩戴时的重量也不会成为过度的负担。</p>
+        </details>
+        <details>
+          <summary>Q：这把剑的价格有点贵，我感觉不太能负担的起怎么办？</summary>
+          <p>A：非常抱歉，由于整把剑都需要全新规格制作的成本（装具开模和刀条设计和全新规格铁鞘），这支剑的成本实在是很难压下来，但我们也保证，这把经过精修检查后的刀剑绝对是市场上目前绝无仅有而物超所值的。</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="special">
+      <h2>特别声明</h2>
+      <p>我们生产的产品为仿古工艺品以及训练器材，凡阅读后如有违规行为与我方无关，属个人行为。所有新产品将会有为期一周的首发优惠。</p>
+      <div class="verify">如有合作信息请发邮箱。联系方式验证信息为“我已全部阅读萨兰工艺品/StrikeBlade的各项条款并确认。”</div>
+    </section>
+  </main>
+</body>
+</html>

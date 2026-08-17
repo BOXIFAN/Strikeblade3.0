@@ -1,0 +1,208 @@
+[
+  {
+    "id": "demo-product-long-gallery-layout",
+    "name": "多图长文产品排版 Demo",
+    "category": "排版测试",
+    "weapon_type": "综合",
+    "origin": "亚欧大陆风格",
+    "period": "综合时期",
+    "status": "正在销售",
+    "steel": "高碳钢 / 弹簧钢演示",
+    "length": "按展示比例测试",
+    "price_note": "演示占位",
+    "summary": "用于检查产品详情页在多张图片、长文字说明和参数信息同时存在时的显示效果。",
+    "description": "这是一件专门用于检查产品详情页排版的 demo，不作为正式销售产品。\n\n第一段用于模拟产品概述：作品页面通常需要同时展示名称、状态、基础参数、说明文字和多张详情图。当前 demo 会刻意放入较长文字，以观察桌面端与移动端在阅读时是否仍然保持清晰的层级和舒适的间距。\n\n第二段用于模拟工艺说明：刀身比例、重心、装具体量、柄部握持感与鞘装语言都会影响一件作品的完成度。正式产品页中，这里可以写入钢材、热处理、研磨方式、表面处理、装具材质、柄卷方式和展示用途等信息。\n\n第三段用于模拟历史与风格说明：如果作品参考了特定历史时期或地域风格，可以在这里说明灵感来源、结构特征和现代转化方式。文字不宜过度堆叠，但需要让客户理解这件作品为什么呈现为当前的比例与风格。\n\n第四段用于模拟购买与定制提示：该位置可以放置咨询前需要确认的信息，例如预算、用途、是否需要展示鞘、尺寸偏好、刻字需求、维护方式和预估工期。由于网站暂不接入线上下单流程，产品详情页应当引导客户前往联系页面进行进一步沟通。\n\n第五段用于测试长文收束：当说明文字较长时，页面需要避免正文、按钮和图库之间互相挤压。多图区域应当作为独立的视觉段落出现，图片需要完整展示主体，不应因为裁切导致刀身、柄部或鞘装信息丢失。",
+    "main_image": "images/mainpage_images/欧亚刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/欧亚刀剑首页.png",
+      "images/mainpage_images/欧式刀剑首页.png",
+      "images/mainpage_images/亚洲刀剑首页.png",
+      "images/mainpage_images/定制刀剑首页.png",
+      "images/mainpage_images/车丘嘉弯刀特写.jpg",
+      "uploads/products/20260814143605-077e2ef6.jpeg",
+      "uploads/products/20260814143605-ddc1af07.jpeg"
+    ],
+    "show_on_home": false,
+    "updated_at": "2026-08-17T16:42:00"
+  },
+  {
+    "id": "demo-product-asian-jian",
+    "name": "明式直身剑 Demo",
+    "category": "直身剑",
+    "weapon_type": "单手",
+    "origin": "亚洲",
+    "period": "近世（1500-1800）",
+    "status": "正在销售",
+    "steel": "高碳钢",
+    "length": "92cm",
+    "price_note": "演示占位",
+    "summary": "以明代审美为参考的直身剑展示样品。",
+    "description": "该 demo 用于展示亚洲体系下的直身剑条、装具比例与收藏页面排版效果。",
+    "main_image": "images/mainpage_images/亚洲刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/亚洲刀剑首页.png"
+    ],
+    "show_on_home": false,
+    "updated_at": "2026-08-17T16:10:00"
+  },
+  {
+    "id": "demo-product-tang-dao",
+    "name": "唐风环首刀 Demo",
+    "category": "环首刀",
+    "weapon_type": "单手",
+    "origin": "亚洲",
+    "period": "中世纪（500-1500）",
+    "status": "开团",
+    "steel": "弹簧钢",
+    "length": "88cm",
+    "price_note": "演示占位",
+    "summary": "偏早期东亚风格的环首刀视觉占位。",
+    "description": "用于测试开团状态、亚洲来源筛选与产品详情页内容展示。",
+    "main_image": "images/mainpage_images/亚洲刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/亚洲刀剑首页.png"
+    ],
+    "show_on_home": false,
+    "updated_at": "2026-08-17T16:10:01"
+  },
+  {
+    "id": "demo-product-longsword",
+    "name": "欧式长剑 Demo",
+    "category": "长剑",
+    "weapon_type": "双手",
+    "origin": "欧洲",
+    "period": "中世纪（500-1500）",
+    "status": "正在销售",
+    "steel": "5160",
+    "length": "118cm",
+    "price_note": "演示占位",
+    "summary": "用于展示双手剑、欧洲来源与中世纪筛选。",
+    "description": "参考中世纪长剑比例，用于演示产品卡片、详情页参数和详情图排版。",
+    "main_image": "images/mainpage_images/欧式刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/欧式刀剑首页.png"
+    ],
+    "show_on_home": true,
+    "updated_at": "2026-08-17T16:10:02"
+  },
+  {
+    "id": "demo-product-sabre-1840",
+    "name": "近代军刀 Demo",
+    "category": "军刀",
+    "weapon_type": "单手",
+    "origin": "欧洲",
+    "period": "近代（1800-1914）",
+    "status": "正在销售",
+    "steel": "60Si2Mn",
+    "length": "96cm",
+    "price_note": "演示占位",
+    "summary": "偏近代军刀体系的产品演示项。",
+    "description": "用于展示近代时期筛选、军刀类目和销售状态卡片。",
+    "main_image": "uploads/products/20260814143605-077e2ef6.jpeg",
+    "detail_images": [
+      "uploads/products/20260814143605-ddc1af07.jpeg"
+    ],
+    "show_on_home": true,
+    "updated_at": "2026-08-17T16:10:03"
+  },
+  {
+    "id": "demo-product-eurasian-saber",
+    "name": "草原风格弯刀 Demo",
+    "category": "弯刀",
+    "weapon_type": "综合",
+    "origin": "亚欧大陆风格",
+    "period": "综合时期",
+    "status": "开团",
+    "steel": "复合钢",
+    "length": "101cm",
+    "price_note": "演示占位",
+    "summary": "融合草原、陆路交流与复合装具语言。",
+    "description": "用于演示泛欧亚风格来源筛选和综合时期内容。",
+    "main_image": "images/mainpage_images/欧亚刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/欧亚刀剑首页.png"
+    ],
+    "show_on_home": true,
+    "updated_at": "2026-08-17T16:10:04"
+  },
+  {
+    "id": "demo-product-rapier",
+    "name": "文艺复兴刺剑 Demo",
+    "category": "刺剑",
+    "weapon_type": "单手",
+    "origin": "欧洲",
+    "period": "近世（1500-1800）",
+    "status": "正在销售",
+    "steel": "高碳钢",
+    "length": "109cm",
+    "price_note": "演示占位",
+    "summary": "强调护手结构与细长剑身比例的展示项。",
+    "description": "用于测试近世时期、欧洲来源和单手分类筛选。",
+    "main_image": "images/mainpage_images/欧式刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/欧式刀剑首页.png"
+    ],
+    "show_on_home": false,
+    "updated_at": "2026-08-17T16:10:05"
+  },
+  {
+    "id": "demo-product-custom-dao",
+    "name": "定制弯刀方案 Demo",
+    "category": "定制作品",
+    "weapon_type": "综合",
+    "origin": "亚欧大陆风格",
+    "period": "综合时期",
+    "status": "开团",
+    "steel": "按需求确认",
+    "length": "按需求确认",
+    "price_note": "咨询确认",
+    "summary": "用于展示定制作品在产品页中的占位效果。",
+    "description": "可围绕钢材、尺寸、柄卷、鞘色、装具和刻字进行方案沟通。",
+    "main_image": "images/mainpage_images/定制刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/定制刀剑首页.png"
+    ],
+    "show_on_home": true,
+    "updated_at": "2026-08-17T16:10:06"
+  },
+  {
+    "id": "demo-product-training-sword",
+    "name": "训练用钝剑 Demo",
+    "category": "训练器材",
+    "weapon_type": "双手",
+    "origin": "欧洲",
+    "period": "现代（1914至今）",
+    "status": "正在销售",
+    "steel": "弹簧钢",
+    "length": "115cm",
+    "price_note": "演示占位",
+    "summary": "偏训练用途的双手钝剑展示项。",
+    "description": "用于展示现代时期、训练器材和双手分类筛选效果。",
+    "main_image": "images/mainpage_images/欧式刀剑首页.png",
+    "detail_images": [
+      "images/mainpage_images/欧式刀剑首页.png"
+    ],
+    "show_on_home": false,
+    "updated_at": "2026-08-17T16:10:07"
+  },
+  {
+    "id": "9e3fd4415f264bf0b7c115f61d071705",
+    "name": "1845步兵军刀",
+    "category": "军刀",
+    "weapon_type": "单手",
+    "origin": "欧洲",
+    "period": "近代（1800-1914）",
+    "status": "正在销售",
+    "steel": "60si",
+    "length": "93cm",
+    "price_note": "¥1500",
+    "summary": "测试效果",
+    "description": "军刀",
+    "main_image": "uploads/products/20260814143605-077e2ef6.jpeg",
+    "detail_images": [
+      "uploads/products/20260814143605-ddc1af07.jpeg"
+    ],
+    "show_on_home": true,
+    "updated_at": "2026-08-14T14:36:05"
+  }
+]

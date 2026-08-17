@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全部产品 | Strikeblade</title>
+  <style>
+    :root {
+      --text: #ece6d8;
+      --muted: #aaa59b;
+      --line: rgba(236, 230, 216, 0.16);
+      --panel: rgba(236, 230, 216, 0.065);
+      --panel-strong: rgba(236, 230, 216, 0.105);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 7%, rgba(236, 230, 216, 0.08), transparent 28rem),
+        linear-gradient(rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 52%, #12110e 100%);
+      background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
+      font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      padding: 0 max(16px, calc((100vw - var(--max)) / 2));
+      border-bottom: 1px solid rgba(236, 230, 216, 0.1);
+      background: rgba(15, 14, 12, 0.76);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    .links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+    }
+
+    main {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 86px 0 100px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 14px 0 18px;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+
+    .intro {
+      max-width: 640px;
+      color: #cfc8bb;
+      line-height: 1.8;
+    }
+
+    .filters {
+      display: grid;
+      gap: 18px;
+      margin: 36px 0;
+      max-width: 980px;
+    }
+
+    .filter-group {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .filter-title {
+      color: var(--text);
+      font-weight: 800;
+      padding-top: 9px;
+    }
+
+    .filter-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(236, 230, 216, 0.045);
+      font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(236, 230, 216, 0.05);
+    }
+
+    .filter.active {
+      color: var(--text);
+      background: var(--panel-strong);
+      border-color: rgba(236, 230, 216, 0.38);
+    }
+
+    .filter-toggle {
+      display: none;
+    }
+
+    .filter-toggle-label {
+      display: none;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .product-card {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.05), transparent 46%),
+        var(--panel);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .product-media {
+      aspect-ratio: 4 / 3;
+      background:
+        linear-gradient(180deg, rgba(14, 13, 11, 0), rgba(14, 13, 11, 0.42)),
+        var(--image) center / cover;
+      filter: grayscale(0.7) sepia(0.12) contrast(1.04) brightness(0.94);
+    }
+
+    .product-body {
+      padding: 20px;
+    }
+
+    .product-body h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .product-body p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .meta span {
+      padding-top: 10px;
+      border-top: 1px solid rgba(236, 230, 216, 0.1);
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      background: rgba(236, 230, 216, 0.075);
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        display: grid;
+        gap: 12px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .filter-toggle-label {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        min-height: 54px;
+        margin: 30px 0 26px;
+        padding: 0 16px;
+        border: 1px solid rgba(236, 230, 216, 0.24);
+        background:
+          linear-gradient(135deg, rgba(236, 230, 216, 0.08), rgba(236, 230, 216, 0.025)),
+          rgba(18, 17, 14, 0.72);
+        color: var(--text);
+        font-weight: 900;
+        cursor: pointer;
+        backdrop-filter: blur(16px);
+      }
+
+      .filter-toggle-label::after {
+        content: "+";
+        width: 28px;
+        height: 28px;
+        display: grid;
+        flex: 0 0 28px;
+        place-items: center;
+        border: 1px solid rgba(236, 230, 216, 0.18);
+        color: var(--muted);
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      .filter-toggle:checked + .filter-toggle-label::after {
+        content: "-";
+      }
+
+      .filter-current {
+        overflow: hidden;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .filters {
+        display: none;
+        gap: 16px;
+        margin: -12px 0 34px;
+        padding: 16px;
+        border: 1px solid rgba(236, 230, 216, 0.14);
+        background: rgba(15, 14, 12, 0.68);
+        backdrop-filter: blur(16px);
+      }
+
+      .filter-toggle:checked ~ .filters {
+        display: grid;
+      }
+
+      .filter-toggle:not(:checked) ~ .product-grid {
+        margin-top: 8px;
+      }
+
+      .filter-group {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .filter-title {
+        padding-top: 0;
+        font-size: 0.94rem;
+      }
+
+      .filter-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .filter {
+        min-height: 38px;
+        justify-content: center;
+        padding: 0 10px;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      .filter-list .filter:last-child:nth-child(odd) {
+        grid-column: span 2;
+      }
+
+      .product-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .meta {
+        display: none;
+      }
+
+      .product-card .meta {
+        display: none !important;
+      }
+
+      .product-body {
+        padding: 18px;
+      }
+
+      .product-body p {
+        margin-bottom: 20px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .filter-toggle-label {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 14px;
+      }
+
+      .filter-toggle-label::after {
+        position: absolute;
+        right: 14px;
+        top: 12px;
+      }
+
+      .filter-current {
+        max-width: calc(100% - 42px);
+      }
+
+      .filter-list {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-list .filter:last-child:nth-child(odd) {
+        grid-column: auto;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-nav.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{{ url_for('index') }}"><img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true"> <span>Strikeblade</span></a>
+    <input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="打开导航菜单">
+    <label class="nav-toggle-label" for="nav-toggle" aria-hidden="true"><span></span></label>
+    <nav class="links">
+      <a href="{{ url_for('index') }}">首页</a>
+      <a href="{{ url_for('buying_guide') }}">购买须知</a>
+      <a href="{{ url_for('all_products') }}">全部产品</a>
+      <a href="{{ url_for('custom') }}">定制</a>
+      <a href="{{ url_for('research') }}">文章/研究</a>
+      <a href="{{ url_for('contact') }}">联系</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="eyebrow">All Products</p>
+    <h1>全部产品</h1>
+    <p class="intro">按刀剑种类、来源和时期筛选当前可展示产品。筛选信息由后台管理页面设置。</p>
+
+    <input class="filter-toggle" id="product-filter-toggle" type="checkbox" aria-label="展开产品筛选">
+    <label class="filter-toggle-label" for="product-filter-toggle">
+      <span>筛选产品</span>
+      <span class="filter-current">{{ selected_type }} / {{ selected_origin }} / {{ selected_period }}</span>
+    </label>
+
+    <nav class="filters" aria-label="产品筛选">
+      <div class="filter-group">
+        <div class="filter-title">刀剑种类</div>
+        <div class="filter-list">
+          <a class="filter {{ 'active' if selected_type == '全部' else '' }}" href="{{ url_for('all_products', origin=selected_origin if selected_origin != '全部' else None, period=selected_period if selected_period != '全部' else None) }}">全部</a>
+          {% for weapon_type in weapon_types %}
+          <a class="filter {{ 'active' if selected_type == weapon_type else '' }}" href="{{ url_for('all_products', type=weapon_type, origin=selected_origin if selected_origin != '全部' else None, period=selected_period if selected_period != '全部' else None) }}">{{ weapon_type }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">刀剑来源</div>
+        <div class="filter-list">
+          <a class="filter {{ 'active' if selected_origin == '全部' else '' }}" href="{{ url_for('all_products', type=selected_type if selected_type != '全部' else None, period=selected_period if selected_period != '全部' else None) }}">全部</a>
+          {% for origin in product_origins %}
+          <a class="filter {{ 'active' if selected_origin == origin else '' }}" href="{{ url_for('all_products', type=selected_type if selected_type != '全部' else None, origin=origin, period=selected_period if selected_period != '全部' else None) }}">{{ origin }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-title">时期</div>
+        <div class="filter-list">
+          <a class="filter {{ 'active' if selected_period == '全部' else '' }}" href="{{ url_for('all_products', type=selected_type if selected_type != '全部' else None, origin=selected_origin if selected_origin != '全部' else None) }}">全部</a>
+          {% for period in product_periods %}
+          <a class="filter {{ 'active' if selected_period == period else '' }}" href="{{ url_for('all_products', type=selected_type if selected_type != '全部' else None, origin=selected_origin if selected_origin != '全部' else None, period=period) }}">{{ period }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </nav>
+
+    <section class="product-grid" aria-label="产品列表">
+      {% for product in products %}
+      <article class="product-card">
+        <div class="product-media" style='--image: url("{{ url_for('static', filename=product.main_image) if product.main_image else url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+        <div class="product-body">
+          <h2>{{ product.name }}</h2>
+          <p>{{ product.summary or product.description or "暂无简介" }}</p>
+          <div class="meta">
+            <span>种类：{{ product.weapon_type or "未设置" }}</span>
+            <span>来源：{{ product.origin or "未设置" }}</span>
+            <span>时期：{{ product.period or "未设置" }}</span>
+            <span>状态：{{ product.status }}</span>
+            <span>钢材：{{ product.steel or "待补充" }}</span>
+            <span>全长：{{ product.length or "待补充" }}</span>
+          </div>
+          <a class="button" href="{{ url_for('product_detail', product_id=product.id) }}">查看详情</a>
+        </div>
+      </article>
+      {% else %}
+      <article class="product-card">
+        <div class="product-media" style='--image: url("{{ url_for('static', filename='images/mainpage_images/车丘嘉弯刀特写.jpg') }}");'></div>
+        <div class="product-body">
+          <h2>暂无产品</h2>
+          <p>当前筛选条件下没有可展示产品。</p>
+          <a class="button" href="{{ url_for('contact') }}">联系咨询</a>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>

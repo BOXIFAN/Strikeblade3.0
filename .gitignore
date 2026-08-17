@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.vscode/
+Strikeblade3.0/
+.env
+.env.*
+instance/
+.pytest_cache/

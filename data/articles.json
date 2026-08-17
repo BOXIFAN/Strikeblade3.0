@@ -1,0 +1,92 @@
+[
+  {
+    "id": "demo-article-long-post-layout",
+    "title": "长篇发帖排版测试 Demo",
+    "summary": "多段落、层级标题和段落间插图的长篇文章，用于检查文章详情页阅读效果。",
+    "status": "发布",
+    "cover_image": "images/mainpage_images/欧亚刀剑首页.png",
+    "content_html": "<h2>长篇文章排版测试</h2><p>这是一篇用于检查发帖效果的长篇 demo。它不作为正式研究内容，只用于观察标题、正文、图片和段落间距在文章详情页中的真实表现。</p><p>文章详情页应当只显示文章标题和正文内容，封面图与摘要只用于文章列表卡片，不应重复出现在正文开头。</p><h3>一、从作品观察开始</h3><p>观察一件刀剑作品时，可以先从整体比例入手。刀身长度、柄部体量、护手宽度和鞘装风格共同决定了作品的第一印象。</p><p>如果只是孤立地讨论某一个部件，往往会忽略它和其他结构之间的关系。一个细节是否成立，通常要放回整体之中判断。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/车丘嘉弯刀特写.jpg\" loading=\"lazy\"><h3>二、材料与工艺的关系</h3><p>材料会影响作品的强度、重量和维护方式，但材料本身并不能替代工艺。热处理、研磨、装配和最终检查，都会改变一件作品的完成度。</p><p>在展示页面中，较长的段落需要保持足够行高和留白，避免阅读时出现压迫感。图片插入后也不应占据过多阅读空间。</p><p><u>这一段加入下划线，用于测试编辑器样式在详情页中的呈现效果。</u></p><img class=\"article-image\" src=\"/static/images/mainpage_images/欧式刀剑首页.png\" loading=\"lazy\"><h3>三、历史灵感的使用</h3><p>历史灵感并不意味着机械复刻。很多时候，我们需要理解原型背后的使用环境、审美习惯和技术限制，再决定如何转化为当代作品。</p><p>当一篇文章涉及多个地区或时期时，小标题可以帮助读者快速定位内容，也能让长文结构更加清晰。</p><h3>四、图片穿插的节奏</h3><p>图片最好服务于上下文，而不是单纯堆叠。放在两个段落之间时，它可以成为阅读节奏的停顿，也可以用于说明前文提到的比例、材质或表面处理。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/欧亚刀剑首页.png\" loading=\"lazy\"><h3>五、结语</h3><p>这篇 demo 的重点是检查文章详情页在长文情况下的稳定性，包括标题层级、正文宽度、图片尺寸、移动端阅读空间和整体视觉节奏。</p><p>后续正式发布时，可以直接通过管理页面编辑、替换图片，并将这篇 demo 删除或改为草稿。</p>",
+    "updated_at": "2026-08-17T16:35:00"
+  },
+  {
+    "id": "demo-article-materials",
+    "title": "刀剑钢材入门 Demo",
+    "summary": "用简短篇幅说明高碳钢、弹簧钢与热处理的基础概念。",
+    "status": "发布",
+    "cover_image": "images/mainpage_images/欧式刀剑首页.png",
+    "content_html": "<h2>钢材不是唯一答案</h2><p>刀剑作品的可靠性来自钢材、热处理、几何结构和最终装配的共同作用。</p><h3>基础观察</h3><p>演示文章用于测试正文标题、段落和图片排版。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/欧式刀剑首页.png\" loading=\"lazy\"><p>后续可以在管理页替换为真实研究内容。</p>",
+    "updated_at": "2026-08-17T16:20:00"
+  },
+  {
+    "id": "demo-article-sabre-history",
+    "title": "近代军刀形制观察 Demo",
+    "summary": "从护手、刀身曲率和鞘装结构观察近代军刀。",
+    "status": "发布",
+    "cover_image": "uploads/products/20260814143605-077e2ef6.jpeg",
+    "content_html": "<h2>近代军刀的结构语言</h2><p>军刀常在骑乘、步兵装备和礼仪展示之间形成不同侧重。</p><p><u>此处为演示正文。</u></p><img class=\"article-image\" src=\"/static/uploads/products/20260814143605-ddc1af07.jpeg\" loading=\"lazy\"><h3>可继续扩展的方向</h3><p>可以补充时期、地区和原型资料。</p>",
+    "updated_at": "2026-08-17T16:20:01"
+  },
+  {
+    "id": "demo-article-asian-blades",
+    "title": "亚洲刀剑装具比例 Demo",
+    "summary": "围绕直身、弯刃与装具比例建立展示说明。",
+    "status": "发布",
+    "cover_image": "images/mainpage_images/亚洲刀剑首页.png",
+    "content_html": "<h2>东方体系下的比例关系</h2><p>亚洲刀剑在刀身、柄装、鞘具和佩挂方式上有丰富变化。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/亚洲刀剑首页.png\" loading=\"lazy\"><p>该 demo 用于检查大图插入后的阅读空间控制。</p>",
+    "updated_at": "2026-08-17T16:20:02"
+  },
+  {
+    "id": "demo-article-maintenance",
+    "title": "收藏刀剑保养笔记 Demo",
+    "summary": "基础保养、涂油、干燥保存和展示环境的占位文章。",
+    "status": "发布",
+    "cover_image": "images/mainpage_images/车丘嘉弯刀特写.jpg",
+    "content_html": "<h2>保养从环境开始</h2><p>长期收藏应关注湿度、触摸后的清洁以及金属表面保护。</p><h3>简单原则</h3><p>干燥、清洁、隔离儿童接触，是最基础的收藏前提。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/车丘嘉弯刀特写.jpg\" loading=\"lazy\">",
+    "updated_at": "2026-08-17T16:20:03"
+  },
+  {
+    "id": "demo-article-custom-process",
+    "title": "定制沟通流程 Demo",
+    "summary": "说明定制时如何准备参考图、尺寸、用途和预算范围。",
+    "status": "发布",
+    "cover_image": "images/mainpage_images/定制刀剑首页.png",
+    "content_html": "<h2>定制从需求开始</h2><p>清晰的参考图、尺寸要求和展示用途，可以帮助更快确定方案。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/定制刀剑首页.png\" loading=\"lazy\"><h3>建议准备</h3><p>刀型、全长、刃长、柄长、鞘色、装具风格和刻字需求。</p>",
+    "updated_at": "2026-08-17T16:20:04"
+  },
+  {
+    "id": "demo-article-eurasian-style",
+    "title": "泛欧亚风格札记 Demo",
+    "summary": "记录草原、陆路交流和复合装具语言的设计灵感。",
+    "status": "发布",
+    "cover_image": "images/mainpage_images/欧亚刀剑首页.png",
+    "content_html": "<h2>跨地域的视觉线索</h2><p>泛欧亚风格可以从草原、贸易路线和军事交流中获得灵感。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/欧亚刀剑首页.png\" loading=\"lazy\"><p>此 demo 用于测试文章卡片与详情页一致性。</p>",
+    "updated_at": "2026-08-17T16:20:05"
+  },
+  {
+    "id": "demo-article-buying-guide",
+    "title": "购买前确认清单 Demo",
+    "summary": "购买前需要确认用途、所在地规定、运输和保管条件。",
+    "status": "发布",
+    "cover_image": "uploads/articles/20260814155021-a4ff3bde.jpg",
+    "content_html": "<h2>购买前先确认边界</h2><p>所在地规定、合法用途、保存方式和收货条件都需要提前确认。</p><h3>演示清单</h3><p>用途、预算、所在地、年龄与保管条件。</p><img class=\"article-image\" src=\"/static/uploads/articles/20260814155021-a4ff3bde.jpg\" loading=\"lazy\">",
+    "updated_at": "2026-08-17T16:20:06"
+  },
+  {
+    "id": "demo-article-display",
+    "title": "陈列与拍摄建议 Demo",
+    "summary": "用光线、背景和视角呈现刀剑作品的线条与结构。",
+    "status": "发布",
+    "cover_image": "images/mainpage_images/车丘嘉弯刀特写.jpg",
+    "content_html": "<h2>展示也是作品的一部分</h2><p>克制的背景、侧向光和足够留白，有助于呈现刀剑线条。</p><img class=\"article-image\" src=\"/static/images/mainpage_images/车丘嘉弯刀特写.jpg\" loading=\"lazy\"><p>后续可扩展为拍摄模板和展示建议。</p>",
+    "updated_at": "2026-08-17T16:20:07"
+  },
+  {
+    "id": "67a9d0d9f60446309533ca6d82eb6339",
+    "title": "车丘嘉项目研究",
+    "summary": "这一篇文章用于测试效果",
+    "status": "发布",
+    "cover_image": "uploads/articles/20260814155021-a4ff3bde.jpg",
+    "content_html": "<h2>大标题</h2><h3>小标题</h3><p>正文</p><p><u>正文搭配下划线</u></p><p><u>插图</u></p><img src=\"/static/uploads/articles/20260814155020-2ce9bf38.jpg\">",
+    "updated_at": "2026-08-14T15:50:21"
+  }
+]

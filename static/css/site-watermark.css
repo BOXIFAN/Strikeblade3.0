@@ -1,0 +1,24 @@
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  background: url("../images/mainpage_images/image.png") center 36vh / auto min(72vh, 820px) no-repeat;
+  filter: grayscale(1) sepia(0.08) contrast(0.9);
+  opacity: 0.038;
+  mix-blend-mode: screen;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 760px) {
+  body::after {
+    background-position: center 34vh;
+    background-size: auto min(68vh, 560px);
+    opacity: 0.032;
+  }
+}

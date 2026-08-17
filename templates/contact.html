@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联系 | Strikeblade</title>
+  <style>
+    :root {
+      --text: #ece6d8;
+      --muted: #aaa59b;
+      --line: rgba(236, 230, 216, 0.15);
+      --line-soft: rgba(236, 230, 216, 0.08);
+      --panel: rgba(236, 230, 216, 0.065);
+      --panel-strong: rgba(236, 230, 216, 0.105);
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 7%, rgba(236, 230, 216, 0.08), transparent 28rem),
+        linear-gradient(rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 230, 216, 0.032) 1px, transparent 1px),
+        linear-gradient(180deg, #151411 0%, #0e0d0b 52%, #12110e 100%);
+      background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
+      font-family: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      padding: 0 max(16px, calc((100vw - var(--max)) / 2));
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(15, 14, 12, 0.76);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      object-position: center 43%;
+      border: 1px solid rgba(236, 230, 216, 0.18);
+      background: #12110e;
+      filter: grayscale(0.25) sepia(0.08) contrast(0.98) brightness(0.9);
+    }
+
+    .links {
+      display: flex;
+      gap: 22px;
+      color: var(--muted);
+    }
+
+    main {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 86px 0 110px;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.045), transparent 48%),
+        var(--panel);
+      backdrop-filter: blur(16px);
+      padding: clamp(28px, 6vw, 58px);
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      line-height: 0.96;
+      letter-spacing: 0.02em;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: #cfc8bb;
+      font-size: 1.08rem;
+      line-height: 1.85;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .contact-card,
+    .platform-card,
+    .note {
+      border: 1px solid var(--line);
+      background: rgba(14, 13, 11, 0.42);
+      padding: 22px;
+    }
+
+    .contact-card span,
+    .platform-card span {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .contact-card strong,
+    .platform-card strong {
+      display: block;
+      color: var(--text);
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .contact-card p,
+    .note p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .platform-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+      margin-top: 14px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(236, 230, 216, 0.09), transparent 46%),
+        rgba(14, 13, 11, 0.48);
+    }
+
+    .platform-card::after {
+      content: "B";
+      position: absolute;
+      right: 24px;
+      bottom: -38px;
+      color: rgba(236, 230, 216, 0.04);
+      font-size: 12rem;
+      font-weight: 900;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .platform-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .platform-copy p {
+      max-width: 720px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .platform-arrow {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      border: 1px solid rgba(236, 230, 216, 0.24);
+      background: var(--panel-strong);
+      color: var(--text);
+      font-size: 1.8rem;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .platform-card:hover .platform-arrow {
+      transform: translate(3px, -3px);
+      background: rgba(236, 230, 216, 0.16);
+    }
+
+    .note {
+      margin-top: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .nav {
+        display: grid;
+        gap: 12px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      .links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      main {
+        padding-top: 42px;
+      }
+
+      .contact-grid,
+      .platform-card {
+        grid-template-columns: 1fr;
+      }
+
+      .platform-arrow {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site-watermark.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-nav.css') }}">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="{{ url_for('index') }}"><img class="brand-logo" src="{{ url_for('static', filename='images/mainpage_images/image.png') }}" alt="" aria-hidden="true"> <span>Strikeblade</span></a>
+    <input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="打开导航菜单">
+    <label class="nav-toggle-label" for="nav-toggle" aria-hidden="true"><span></span></label>
+    <nav class="links">
+      <a href="{{ url_for('index') }}">首页</a>
+      <a href="{{ url_for('buying_guide') }}">购买须知</a>
+      <a href="{{ url_for('all_products') }}">全部产品</a>
+      <a href="{{ url_for('custom') }}">定制</a>
+      <a href="{{ url_for('research') }}">文章/研究</a>
+      <a href="{{ url_for('contact') }}">联系</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Contact</p>
+      <h1>联系</h1>
+      <p class="lead">如需咨询作品、定制方案或合作信息，请尽量附上产品名称、用途、所在地区、预算范围与参考图。</p>
+    </section>
+
+    <section class="contact-grid" aria-label="联系方式">
+      <a class="contact-card" href="mailto:strikeblade@163.com">
+        <span>Email</span>
+        <strong>strikeblade@163.com</strong>
+        <p>适合发送合作信息、定制资料、参考图和详细需求。</p>
+      </a>
+      <article class="contact-card">
+        <span>WeChat</span>
+        <strong>Deanleozaren</strong>
+        <p>添加时请注明咨询内容或产品名称，便于快速确认。</p>
+      </article>
+      <a class="contact-card" href="tel:+8613672137739">
+        <span>Phone</span>
+        <strong>+86 136 7213 7739</strong>
+        <p>电话沟通建议先通过微信或邮箱确认基本需求。</p>
+      </a>
+    </section>
+
+    <a class="platform-card" href="https://space.bilibili.com/82641023?spm_id_from=333.337.search-card.all.click" target="_blank" rel="noopener noreferrer" aria-label="打开 StrikeBlade Bilibili 主页">
+      <div class="platform-copy">
+        <span>Bilibili</span>
+        <strong>前往 Bilibili 主页</strong>
+        <p>查看视频内容、项目记录与后续展示更新。点击后将在新窗口打开。</p>
+      </div>
+      <div class="platform-arrow" aria-hidden="true">↗</div>
+    </a>
+
+    <section class="note">
+      <p>联系前建议先阅读购买须知。若用于定制咨询，请准备参考图、尺寸、预算范围和预期用途，以便更快进入方案沟通。</p>
+    </section>
+  </main>
+</body>
+</html>
